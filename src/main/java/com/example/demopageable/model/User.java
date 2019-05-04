@@ -20,4 +20,5 @@ public class User {
     private Long freshdeskId;
     private String language;
     private Long referrerId;
+
 }

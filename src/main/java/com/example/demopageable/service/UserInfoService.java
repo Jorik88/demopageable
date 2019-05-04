@@ -4,7 +4,6 @@ import com.example.demopageable.configuration.AuthConfiguration;
 import com.example.demopageable.model.BaseDataResponse;
 import com.example.demopageable.model.PageImpl;
 import com.example.demopageable.model.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
-import java.util.List;
 
 @Service
 public class UserInfoService {
@@ -23,7 +21,6 @@ public class UserInfoService {
     private static final String API_KEY_HEADER = "x-api-key";
 
     private RestTemplate restTemplate = new RestTemplate();
-    private ObjectMapper objectMapper = new ObjectMapper();
     private final AuthConfiguration configuration;
 
 
@@ -50,22 +47,5 @@ public class UserInfoService {
         HttpHeaders headers = new HttpHeaders();
         headers.set(API_KEY_HEADER, apiKey);
         return new HttpEntity<>(headers);
-    }
-
-    public Long test() {
-        Long totalUsers = 0L;
-        Integer page = 0;
-        Integer size = 2;
-        while(true) {
-            PageImpl<User> userData = getUserData(page, size);
-            List<User> content = userData.getContent();
-            if (content.size() == 0) {
-                break;
-            }
-//            System.out.println(content);
-            page++;
-            totalUsers+= content.size();
-        }
-        return totalUsers;
     }
 }

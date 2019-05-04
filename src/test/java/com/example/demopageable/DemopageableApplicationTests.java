@@ -1,6 +1,9 @@
 package com.example.demopageable;
 
+import com.example.demopageable.model.UserInfoStatistics;
+import com.example.demopageable.repository.PurchaseOrderStatisticCustomRepository;
 import com.example.demopageable.repository.PurchaseOrderStatisticRepository;
+import com.example.demopageable.service.IProcessUserInfo;
 import com.example.demopageable.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,19 @@ public class DemopageableApplicationTests {
 	@Autowired
 	private PurchaseOrderStatisticRepository repository;
 
+	@Autowired
+	private IProcessUserInfo iProcessUserInfo;
+
+	@Autowired
+	private PurchaseOrderStatisticCustomRepository customRepository;
+
+
+	@Test
+	public void testCustomRepository() {
+		int countUniqUsers = customRepository.getCountUniqUsers();
+		System.out.println(countUniqUsers);
+	}
+
 	@Test
 	public void contextLoads() throws IOException {
 //		userInfoService.getUserData();
@@ -29,8 +45,8 @@ public class DemopageableApplicationTests {
 
 	@Test
 	public void test2() {
-		Long test = userInfoService.test();
-		System.out.println(test);
+		UserInfoStatistics userInfoStatistics = iProcessUserInfo.processUserInfoData();
+		System.out.println(userInfoStatistics);
 	}
 
 }
